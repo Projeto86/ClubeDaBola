@@ -1,0 +1,128 @@
+
+<html>
+	<head>
+		<script type="text/javascript" src="/prs/inc/js/swfupload.js"></script>
+		<script type="text/javascript" src="/prs/inc/js/swfupload.queue.js"></script>
+		<script type="text/javascript" src="/prs/inc/js/swfupload/fileprogress.js"></script>
+		<script type="text/javascript" src="/prs/inc/js/swfupload/handlers.js"></script>
+		<style type="text/css">
+			.text {
+				  font-family: 'ElektraLightProBold', Verdana, Arial;
+				  color: #606062;
+				  font-size: 16px;
+				  background-color: #FFF;
+				  border: #ABABA2 1px solid;
+				  -webkit-border-radius: 9px;
+				  -moz-border-radius: 9px;
+				  border-radius: 9px;
+				  padding-left: 10px;
+				  line-height: 25px;
+				  width: 65%;
+				}
+		</style>
+	</head>
+	<body>
+
+		<div class="titulo-verde-15-bold-italic bordaBaixa">Adicionar fotos & v�deos</div>
+		<br>
+		<div id="dvVideo" style="display:none">
+			<span class="titulo-cinza-15-bold">Informe o link para o v�deo desejado.   <span style="font-size: 10px">(youtube ou vimeo)</span></span>
+			<br>
+			<input type="text" class="text" id="tx_video" />
+			<input id="btnVideo" type="button" value="Adicionar" onclick="video.validar()" style="float: right; margin-right: 2px; font-size: 8pt; height:24px;" />
+			<br>
+			<br>
+		</div>
+
+		<div id="dvFoto">
+			<span class="titulo-cinza-15-bold">Clique no bot�o abaixo, e escolha as fotos em seu computador.   <span style="font-size: 10px">(limite de 4 MB)</span></span>
+			<br>
+			<div>
+				<div style="float:left">
+					<span id="spanButtonPlaceHolder"></span>
+				</div>
+				<div style="float:right">
+					<input id="btnCancel" type="button" value="Cancelar envio" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height:24px;" />
+				</div>
+			</div>
+		</div>
+
+		<div style="clear:both">&nbsp;</div>
+
+		<div id="fsUploadProgress" style="width:100%; height:220px; overflow: auto; margin-bottom: 5px"></div>
+		<div id="divStatus" class="titulo-cinza-15-bold"></div>
+
+		<script type="text/javascript">
+			var video = {
+				validar : function(){
+					var link = document.getElementById('tx_video').value;
+					var imagem = '';
+					var erro = '';
+					if ( link.length < 5 ) { erro += 'Link inv�lido. Verifique o caminho informado (1)\r\n'; }
+					if ( link.indexOf('youtube') == -1 && link.indexOf('youtu.be') == -1 &&
+						 link.indexOf('vimeo') == -1 && erro == '' )
+					{
+							erro += 'Link inv�lido. Verifique o caminho informado (2)\r\n';
+					}
+					if ( erro != '') { alert(erro); }
+					else {
+						var vid = link.split('/');
+						if ( link.indexOf('vimeo')>-1 ){
+							link = '//player.vimeo.com/video/' + vid[vid.length-1];
+						} else {
+							link = 'https://www.youtube.com/embed/' + vid[vid.length-1].replace('watch?v=','');
+							imagem = 'http://img.youtube.com/vi/'+vid[vid.length-1].replace('watch?v=','')+'/default.jpg';
+						}
+						parent.video.adicionar(link, imagem);
+					}
+				}
+			}
+
+			var swfu = new SWFUpload({
+				flash_url : "/Prs/Inc/Swf/swfupload.swf",
+				flash9_url : "/Prs/Inc/Swf/swfupload_fp9.swf",
+				upload_url: "/Prs/Admin/Ajax/upload.aspx",
+				post_params: { "u" : "1", "e" : "1", "a" : "1" },
+				file_size_limit : "20 MB",
+				file_types : "*.jpg;*.png;*.bmp;*.tif;*.jpeg;*.tiff",
+				file_types_description : "Apenas imagens",
+				file_upload_limit : 100,
+				file_queue_limit : 0,
+				custom_settings : {
+					progressTarget : "fsUploadProgress",
+					cancelButtonId : "btnCancel",
+					fctCompleted : function(){
+						//history.go(0);
+						//parent.album.fotos.listar();
+					}
+				},
+				debug: false,
+
+				// Button settings
+				//button_image_url: "/Prs/Img/swfupload/XPButtonNoText_160x22.png",
+				button_width: "160",
+				button_height: "22",
+				button_placeholder_id: "spanButtonPlaceHolder",
+				button_text: '<span class="theFont">Escolher fotos</span>',
+				button_text_style: ".theFont { font-family:verdana; font-size: 12pt; }",
+				button_text_left_padding: 5,
+				button_text_top_padding: 1,
+
+				// The event handler functions are defined in handlers.js
+				swfupload_preload_handler : preLoad,
+				swfupload_load_failed_handler : loadFailed,
+				file_queued_handler : fileQueued,
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				upload_start_handler : uploadStart,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess,
+				upload_complete_handler : uploadComplete,
+				queue_complete_handler : queueComplete	// Queue plugin event
+			});
+
+
+		</script>
+	</body>
+</html>
