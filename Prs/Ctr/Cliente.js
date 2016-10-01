@@ -1,5 +1,4 @@
-
-var p86BaProduto = {
+var ClienteP86 = {
 	listar : function(colunas, funcaoRetorno){
 		var query = new twJscSistemaDados.procedure('up_lacos_ba_produto_list');
 		query.toJson(
