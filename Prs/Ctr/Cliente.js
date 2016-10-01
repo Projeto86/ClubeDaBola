@@ -21,7 +21,7 @@ var ClienteP86 = {
 				}
 			}
 		);
-	}, 
+	},
 	adicionar : function(tx_nome,tx_mini_descricao,tx_descricao,tx_url_principal,tx_url_secundaria,nu_prazo_dias,nu_qtd_estoque,vl_peso,vl_venda,vl_custo,funcaoRetorno){
 		var query = new twJscSistemaDados.procedure('up_lacos_ba_produto_add');
 		query.adicionar('@tx_nome', tx_nome);
