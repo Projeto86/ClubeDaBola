@@ -561,8 +561,7 @@ div::-webkit-scrollbar-track:active{ border:none; background-color:#EEE; }
 }
 
 .homeBg {
-	/* background: url(/Prs/Img/Bg/home.jpg?nc=1503061840) no-repeat center center fixed; */
-	background-color: #000;
+	background: url(/Prs/Img/Bg/betspredictions.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;

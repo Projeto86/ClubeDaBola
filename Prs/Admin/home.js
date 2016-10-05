@@ -7,7 +7,7 @@ var adm_home = {
 			id:"Base_Home_List",
 			view:"dataview",
 			borderless:true,
-			css : "homeBox",
+			css : "noBG homeBox homeDetail",
 			type: { 'height': 95, width : 95 },
 			template : function(obj){
 				var color = (obj.color?obj.color:'');
@@ -23,7 +23,9 @@ var adm_home = {
 			data:[],
 			click : function(id){
 				var l = id ;
+				var sidebar = $$('main_menu');
 				_main.go(l);
+				sidebar.select(l);
 			}
 		},
 		{ id : 'Base_Home_Detail', rows : [] }

@@ -74,7 +74,8 @@ string LoadJS(string path){
 		<script type="text/javascript" src="../inc/js/swfupload/handlers.js"></script>
 
 		<%=LoadJS("../admin")%>
-		<%=LoadJS("../admin/site")%>
+		<%=LoadJS("../admin/cliente")%>
+		<%=LoadJS("../admin/horario")%>
 
 
 		<script type="text/javascript">
@@ -86,26 +87,11 @@ string LoadJS(string path){
 			if ( callback ){ setTimeout(callback,100); }
 		},
 		menu : {
-			site : [
-				{ id : 'adm_site', 	value : 'Listar', name : 'Principal', color : 'gold', icon : 'home' }
+			cliente : [
+				{ id : 'adm_cliente', 	value : 'Listar', name : 'Clientes', color : 'gold', icon : 'users' },
 			],
-			exposicao : [
-				{ id : 'adm_exposicao', 	value : 'Listar', name : 'Exposição', color : 'gold', icon : 'eye' }
-			],
-			galeria : [
-				{ id : 'adm_galeria', 	value : 'Listar', name : 'Galeria', color : 'gold', icon : 'camera' }
-			],
-			arte : [
-				{ id : 'adm_arte', 	value : 'Listar', name : 'Arte & Poesia', color : 'gold', icon : 'quote-left' }
-			],
-			evento : [
-				{ id : 'adm_evento', 	value : 'Listar', name : 'Evento', color : 'gold', icon : 'calendar-o' }
-			],
-			sobre : [
-				{ id : 'adm_sobre', 	value : 'Listar', name : 'Sobre', color : 'gold', icon : 'info' }
-			],
-			contato : [
-				{ id : 'adm_contato', 	value : 'Listar', name : 'Contato', color : 'gold', icon : 'envelope' }
+			horario : [
+				{ id : 'adm_horario', 	value : 'Listar', name : 'Horarios', color : 'gold', icon : 'clock-o' }
 			]
 		},
 		listUI : [],
@@ -177,16 +163,22 @@ string LoadJS(string path){
 									width:170,
 									data : [
 										{ id : 'adm_home', 	 	value : 'Site', 	icon : 'home' },
-										{ id : 'adm_site', 	 	value : 'Site', 	icon : 'home' }/*,
+										{ id : 'adm_cliente', 	 	value : 'Clientes', 	icon : 'users' },
+										{ id : 'adm_horario', 	 	value : 'Horarios', 	icon : 'clock-o' }
+										/*,
 										{ id : 'adm_exposicao', value : 'ExposiÃ§Ã£o', 	icon : 'eye' },
 										{ id : 'adm_galeria', 	value : 'Galeria', 		icon : 'camera' },
 										{ id : 'adm_arte', 	 	value : 'Arte & Poesia', icon : 'quote-left' },
-										{ id : 'adm_evento', 	value : 'Evento', 		icon : 'calendar-o' },
+										{ id : 'adm_evento', 	value : 'Evento', 		icon : 'clock-o-o' },
 										{ id : 'adm_sobre', 	value : 'Sobre', 		icon : 'info' },
 										{ id : 'adm_contato', 	value : 'Contato', 		icon : 'envelope' }*/
 									],
 									on:{ onAfterSelect: function(id){
-											$$(id).show();
+											console.log(id)
+
+											_main.go(id,function(){
+													$$(id).show();
+											});
 										}
 									}
 								},
